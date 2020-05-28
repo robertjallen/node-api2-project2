@@ -1,6 +1,6 @@
 const express = require('express');
 
-// const Hubs = require('./hubs/hubs-model.js');
+const db = require('./data/db.js');
 
 const server = express();
 
@@ -13,37 +13,42 @@ server.get('/', (req, res) => {
   `);
 });
 
-// server.get('/api/hubs', (req, res) => {
-//   Hubs.find(req.query)
-//   .then(hubs => {
-//     res.status(200).json(hubs);
-//   })
-//   .catch(error => {
-//     // log error to database
-//     console.log(error);
-//     res.status(500).json({
-//       message: 'Error retrieving the hubs',
-//     });
-//   });
-// });
-
-// server.get('/api/hubs/:id', (req, res) => {
-//   Hubs.findById(req.params.id)
-//   .then(hub => {
-//     if (hub) {
-//       res.status(200).json(hub);
-//     } else {
-//       res.status(404).json({ message: 'Hub not found' });
-//     }
-//   })
-//   .catch(error => {
-//     // log error to database
-//     console.log(error);
-//     res.status(500).json({
-//       message: 'Error retrieving the hub',
-//     });
-//   });
-// });
+//------------------------------------------------------------------------
+//                     READ
+//------------------------------------------------------------------------
+server.get('/api/posts', (req, res) => {
+  db.find()
+  .then(posts => {
+    res.status(200).json(posts);
+  })
+  .catch(error => {
+    // log error to database
+    console.log(error);
+    res.status(500).json({
+      message: 'Error retrieving the posts',
+    });
+  });
+});
+//------------------------------------------------------------------------
+//                     READ BY ID
+//------------------------------------------------------------------------
+server.get('/api/posts/:id', (req, res) => {
+  db.findById(req.params.id)
+  .then(post => {
+    if (post) {
+      res.status(200).json(hub);
+    } else {
+      res.status(404).json({ message: 'Post not found' });
+    }
+  })
+  .catch(error => {
+    // log error to database
+    console.log(error);
+    res.status(500).json({
+      message: 'Error retrieving the Post',
+    });
+  });
+});
 
 // server.post('/api/hubs', (req, res) => {
 //   Hubs.add(req.body)
