@@ -49,20 +49,25 @@ server.get('/api/posts/:id', (req, res) => {
     });
   });
 });
-
-// server.post('/api/hubs', (req, res) => {
-//   Hubs.add(req.body)
-//   .then(hub => {
-//     res.status(201).json(hub);
-//   })
-//   .catch(error => {
-//     // log error to database
-//     console.log(error);
-//     res.status(500).json({
-//       message: 'Error adding the hub',
-//     });
-//   });
-// });
+//------------------------------------------------------------------------
+//                     POST
+//------------------------------------------------------------------------
+server.post('/api/posts', (req, res) => {
+  db.insert(req.body)
+  .then(post => {
+    res.status(201).json(post);
+  })
+  .catch(error => {
+    // log error to database
+    console.log(error);
+    res.status(500).json({
+      message: 'Error adding the Post',
+    });
+  });
+});
+//------------------------------------------------------------------------
+//                     PUT
+//------------------------------------------------------------------------
 
 // server.delete('/api/hubs/:id', (req, res) => {
 //   Hubs.remove(req.params.id)
