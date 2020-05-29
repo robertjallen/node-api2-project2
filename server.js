@@ -36,7 +36,7 @@ server.get('/api/posts/:id', (req, res) => {
   db.findById(req.params.id)
   .then(post => {
     if (post) {
-      res.status(200).json(hub);
+      res.status(200).json(post);
     } else {
       res.status(404).json({ message: 'Post not found' });
     }
@@ -86,31 +86,30 @@ server.delete('/api/posts/:id', (req, res) => {
     });
   });
 });
-
-// server.put('/api/hubs/:id', (req, res) => {
-//   const changes = req.body;
-//   Hubs.update(req.params.id, changes)
-//   .then(hub => {
-//     if (hub) {
-//       res.status(200).json(hub);
-//     } else {
-//       res.status(404).json({ message: 'The hub could not be found' });
-//     }
-//   })
-//   .catch(error => {
-//     // log error to database
-//     console.log(error);
-//     res.status(500).json({
-//       message: 'Error updating the hub',
-//     });
-//   });
-// });
+//------------------------------------------------------------------------
+//                     UPDATE BY ID
+//------------------------------------------------------------------------
+server.put('/api/posts/:id', (req, res) => {
+  const changes = req.body;
+  db.update(req.params.id, changes)
+  .then(post => {
+    if (post) {
+      console.log(post)
+      res.status(200).json({post: post, item: changes});
+    } else {
+      res.status(404).json({ message: 'The Post could not be found' });
+    }
+  })
+  .catch(error => {
+    // log error to database
+    console.log(error);
+    res.status(500).json({
+      message: 'Error updating the Post',
+    });
+  });
+});
 
 // // add an endpoint that returns all the messages for a hub
 // // add an endpoint for adding new message to a hub
-
-// server.listen(4000, () => {
-//   console.log('\n*** Server Running on http://localhost:4000 ***\n');
-// });
 
 module.exports = server;
