@@ -6,7 +6,6 @@ const commentsRouter = require('./data/comments-router.js');
 server.use(express.json());
 
 server.use('/api/posts', postsRouter);
-server.use('/api/comments', commentsRouter);
 
 server.get('/', (req, res) => {
   res.send(`

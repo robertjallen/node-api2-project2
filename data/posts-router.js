@@ -40,10 +40,12 @@ router.get('/:id', (req, res) => {
     });
   });
 });
+
 //------------------------------------------------------------------------
-//                     READ COMMENTS BY ID
+//                     READ POST COMMENTS BY POST ID
 //------------------------------------------------------------------------
 router.get('/:id/comments', (req, res) => {
+  console.log(req.params.id)
   db.findPostComments(req.params.id)
   .then(comments => {
     if (comments) {
@@ -60,6 +62,7 @@ router.get('/:id/comments', (req, res) => {
     });
   });
 });
+
 //------------------------------------------------------------------------
 //                     POST
 //------------------------------------------------------------------------
